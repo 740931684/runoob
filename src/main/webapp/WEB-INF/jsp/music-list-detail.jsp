@@ -135,17 +135,17 @@
                     var params={};
                     params.user=$.cookie("user");
                     params.musicType="${musicType}";
-                    params.picture="${musicDetail.picture}";
-                    params.topic="${musicDetail.musicListName}";
-                    params.introduced="${musicDetail.musicListIntroduce}";
-                    params.musicFlag="${musicDetail.musicFlag}";
+                    params.picture="${musicList.picture}";
+                    params.topic="${musicList.topic}";
+                    params.introduced="${musicList.detail}";
+                    params.musicFlag="${musicList.musicFlag}";
                     $.ajax({
                         async:false,
                         type: "post",
-                        url: "music-list/"+"${musicType}/"+"${musicDetail.musicFlag}",//注意路径
+                        url: "music-list/"+"${musicType}/"+"${musicList.musicFlag}",//注意路径
                         data:params,
                         dataType:"json",
-                        success:function () {
+                        success:function (e) {
                             window.location.reload();
                         },
                         error:function () {
@@ -156,7 +156,7 @@
             }
         });
 
-        if ("${topic}"!="" && "${topic}"=="${musicDetail.musicListName}"){
+        if ("${topic}"!="" && "${topic}"=="${musicList.topic}"){
             $(".collect").css("background-color","#EE3B3B");
             $(".collect").find('span').text("已收藏");
         }
