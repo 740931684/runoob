@@ -1,0 +1,32 @@
+.container {
+	margin-top: 100px;
+	margin-left: 200px;
+	background-color: #000;
+	width: 70%;
+	height: auto;
+	float: left;
+}
+
+#information{
+	width: 17%;
+	height: auto;
+}
+
+#information p{
+	padding-top:20px;
+}
+
+.container-left{
+	float:left;
+}
+
+.container-right{
+	height: auto;
+	height: 83%;
+	float: left;
+}
+
+#music-name {
+	width: auto;
+	height: 100px;
+}

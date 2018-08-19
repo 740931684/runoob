@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.music.dao.MusicListDao">
+    <select id="queryAll" resultType="MusicList">
+        select * from music_list where music_type=#{musicType};
+    </select>
+
+    <delete id="deleteMusic">
+        delete from music_list where topic=#{musicListName};
+    </delete>
+
+    <select id="queryTheMusicList" resultType="MusicList">
+        select * from music_list;
+    </select>
+
+    <select id="queryMusicList" resultType="MusicList">
+        select * from music_list
+        where music_flag=#{musicFlag}
+        AND music_type=#{musicType};
+    </select>
+
+</mapper>
