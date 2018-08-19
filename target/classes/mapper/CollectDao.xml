@@ -1,0 +1,17 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.music.dao.CollectDao">
+    <select id="queryCollect" resultType="Collect">
+        select * from collect where user=#{user};
+    </select>
+
+    <insert id="insertIntoCollect">
+        insert ignore into collect(user,music_type,picture,topic,introduced,music_flag)values
+        (#{user},#{musicType},#{picture},#{topic},#{introduced},#{musicFlag});
+    </insert>
+
+    <delete id="deleteMusicList">
+        delete from collect where user=#{user} and music_flag=#{musicFlag};
+    </delete>
+</mapper>

@@ -1,0 +1,33 @@
+#header a{
+	font-weight: 500;
+    font-size: 17px;
+    font-family: "Microsoft YaHei","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif;
+}
+
+a:hover, a:focus {
+    color: #74777b;
+    text-decoration: none;
+}
+
+.explain span{
+	display: block;
+	width:auto;
+	height:auto;
+	text-align:center;
+	margin-top:20px;
+	background-color: #333;
+	color: #D5D6E2;
+    font-weight: 500;
+    font-size: 1.40em;
+    font-family: "Microsoft YaHei","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif;
+}
+
+.link a{
+	margin: 20px;
+	color: rgba(255, 255, 255, 0.6);
+	font-weight: 500;
+    font-size: 1.40em;
+    font-family: "Microsoft YaHei","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif;
+}
+
+

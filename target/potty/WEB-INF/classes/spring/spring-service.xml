@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.2.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+    <context:component-scan base-package="org.music.service"/>
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+        <!-- 注入事务连接池 -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 配置基于注解的申明式事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
+     <tx:attributes>
+     <tx:method name="transfer" propagation="REQUIRED"/>
+ </tx:attributes>
+ </tx:advice>
+
+     <aop:config>
+     <aop:pointcut id="musicPoint" expression="@annotation(org.music.annotation.MusicAnnotation)" />
+     <aop:advisor advice-ref="txAdvice" pointcut-ref="musicPoint" />
+ </aop:config>-->
+
+
+
+    <!--<bean id="tranProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="target" value="musicServiceImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="transfer">ISOLATION_DEFAULT,PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>-->
+
+
+
+</beans>

@@ -1,0 +1,25 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.music.dao.UserListenDao">
+    <select id="queryAll" resultType="UserListen">
+        select * from user_listen where user=#{user};
+    </select>
+
+    <insert id="insertMusic">
+        insert into user_listen(user,music_name,address)
+        values (#{user},#{name},#{address});
+    </insert>
+
+    <select id="queryHottestMusic" resultType="UserListen">
+        select music_name,count(user) count_music,address from user_listen
+        group by music_name
+        order by count(user) desc
+        limit 0,10;
+    </select>
+
+    <delete id="deleteMusic">
+        delete from user_listen where user=#{user};
+    </delete>
+
+</mapper>

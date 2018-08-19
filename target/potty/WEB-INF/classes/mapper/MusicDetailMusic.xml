@@ -1,0 +1,16 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.music.dao.MusicDetailMusicDao">
+    <select id="queryMusicInfo" resultType="MusicDetailMusic">
+        select * from music_detail_music where music_flag=#{musicFlag} and music_type=#{musicType};
+    </select>
+    
+    <select id="queryMusicByName" resultType="MusicDetailMusic">
+        SELECT * from music_detail_music where music_name like concat('%',#{musicName},'%');
+    </select>
+
+    <select id="queryMusic" resultType="MusicDetailMusic">
+        select * from music_detail_music
+    </select>
+</mapper>

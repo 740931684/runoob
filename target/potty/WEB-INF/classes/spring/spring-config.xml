@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:property-placeholder location="classpath:musicdb.properties"/>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${driver}"/>
+        <property name="jdbcUrl" value="${url}"/>
+        <property name="user" value="${user}"/>
+        <property name="password" value="${password}"/>
+
+        <property name="autoCommitOnClose" value="false"/>
+        <property name="acquireRetryAttempts" value="5"/>
+        <property name="checkoutTimeout" value="2000"/>
+        <property name="maxPoolSize" value="50"/>
+        <property name="minPoolSize" value="3"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="typeAliasesPackage" value="org.music.entity"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="org.music.dao"/>
+    </bean>
+
+    <bean id="MusicRedis" class="org.music.redis.MusicRedis">
+        <constructor-arg index="0" value="127.0.0.1" />
+        <constructor-arg index="1" value="6379" />
+    </bean>
+
+   <!-- <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <context:component-scan base-package="org.music.aop">
+        <context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
+    </context:component-scan>-->
+
+    <bean id="MusicAdvice" class="org.music.aop.MusicAdvice" />
+
+    <aop:config proxy-target-class="true">
+        <aop:aspect id="musicAspect" ref="MusicAdvice">
+            <aop:pointcut id="musicPoint" expression="@annotation(org.music.annotation.MusicAnnotation)"/>
+            <aop:around pointcut-ref="musicPoint" method="AroundMethod"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="MusicList" class="org.music.entity.MusicList" />
+
+
+</beans>
